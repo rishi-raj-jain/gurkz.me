@@ -1,0 +1,27 @@
+---
+import "../style.css";
+
+export type Props = {
+  title: string;
+};
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} - gurkan's website</title>
+  </head>
+  <body>
+    <div class="bg-green-400 py-2 pl-2 mb-2 text-black">
+      <a href="/">gurkan's website</a>
+    </div>
+    <main class="p-2 min-w-full">
+      <slot />
+    </main>
+  </body>
+</html>

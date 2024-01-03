@@ -1,0 +1,39 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { BadApple } from "../../components/badapple";
+---
+
+<Layout title="bad apple - projects">
+  <a href="/projects">⬅️ back</a>
+  <h1 class="text-4xl">bad apple in HTML</h1>
+  <BadApple client:only />
+</Layout>
+
+<style is:inline>
+  .button {
+    display: none;
+  }
+
+  img {
+    visibility: hidden;
+  }
+
+  td,
+  tr {
+    width: 5px;
+    border: 0.5px solid black;
+    height: 5px;
+  }
+  table {
+    border-collapse: collapse;
+  }
+
+  body {
+    background-color: #121212;
+    color: #ffff;
+  }
+
+  video {
+    display: none;
+  }
+</style>

@@ -1,16 +1,13 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>gurkan</title>
-  </head>
-  <body>
-    <h1>hello</h1>
-  </body>
-</html>
+<Layout title="home">
+  <h1 class="text-4xl">hello 👋</h1>
+  <p>do I win the award for most empty homepage? <b>probably.</b></p>
+  <p>
+    jokes aside, go to the <a href="/projects" class="font-bold underline"
+      >projects page</a
+    > for some cool stuff
+  </p>
+</Layout>
