@@ -7,31 +7,28 @@ export function BadApple() {
   let video: HTMLVideoElement;
   let inputs: HTMLDivElement;
   let downscaleFactorElem: HTMLInputElement;
+  let tableElem: HTMLTableElement;
 
   onMount(() => {
-    let context = canvas.getContext("2d");
+    const context = canvas.getContext("2d", { willReadFrequently: true });
     if (!context) return;
     canvas.width = video.width;
     canvas.height = video.height;
     let downscaleFactor = 3;
 
     function createTable(height: number, width: number) {
-      const table = document.createElement("table");
       const body = document.createElement("tbody");
 
       for (let y = 0; y < height; y++) {
-        let row = table.insertRow(y);
+        let row = tableElem.insertRow(y);
         for (let x = 0; x < width; x++) {
           row.insertCell(x);
         }
       }
 
-      table.appendChild(body);
-      document.body.appendChild(table);
-      return table;
+      tableElem.appendChild(body);
+      return tableElem;
     }
-
-    let table: HTMLTableElement;
 
     function fillTableCell(
       table: HTMLTableElement,
@@ -56,7 +53,7 @@ export function BadApple() {
     };
 
     playBtn.addEventListener("click", () => {
-      table = createTable(
+      tableElem = createTable(
         canvas.height / downscaleFactor,
         canvas.width / downscaleFactor
       );
@@ -89,7 +86,7 @@ export function BadApple() {
           for (let x = 0; x < video.width; x += downscaleFactor) {
             // the table size is already downscaled by the `downscaleFactor`
             fillTableCell(
-              table,
+              tableElem,
               x / downscaleFactor,
               y / downscaleFactor,
               getRGBColorFromPixel(context!, x, y)
@@ -138,6 +135,7 @@ export function BadApple() {
       <button ref={pauseBtn!} class="bg-white text-black px-2 py-1 rounded-md">
         pause/resume
       </button>
+      <table ref={tableElem!}></table>
     </>
   );
 }
