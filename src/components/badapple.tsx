@@ -149,6 +149,7 @@ export function BadApple() {
         width="160"
         height="120"
         controls
+        playsinline
       ></video>
       <br />
       <table ref={setTableElem}></table>
