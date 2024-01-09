@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/check": "^0.3.4",
     "@astrojs/solid-js": "^3.0.3",
+    "@solid-primitives/event-listener": "^2.3.0",
     "@unocss/reset": "^0.58.3",
     "@unocss/transformer-directives": "^0.58.3",
     "astro": "^4.0.9",

@@ -1,34 +1,53 @@
-import { onMount } from "solid-js";
+import { createSignal, onMount } from "solid-js";
+import { makeEventListener } from "@solid-primitives/event-listener";
+
+type CreateTableProps = {
+  table: HTMLTableElement;
+  height: number;
+  width: number;
+};
+
+function createTable(props: CreateTableProps) {
+  const body = document.createElement("tbody");
+
+  for (let y = 0; y < props.height; y++) {
+    let row = props.table.insertRow(y);
+    for (let x = 0; x < props.width; x++) {
+      row.insertCell(x);
+    }
+  }
+
+  props.table.appendChild(body);
+  return props.table;
+}
 
 export function BadApple() {
-  let canvas: HTMLCanvasElement = document.createElement("canvas");
-  let playBtn: HTMLButtonElement;
-  let pauseBtn: HTMLButtonElement;
-  let video: HTMLVideoElement;
-  let inputs: HTMLDivElement;
-  let downscaleFactorElem: HTMLInputElement;
-  let tableElem: HTMLTableElement;
+  const [canvasElem] = createSignal<HTMLCanvasElement>(
+    document.createElement("canvas")
+  );
+  const [playBtnElem, setPlayBtn] = createSignal<HTMLButtonElement>();
+  const [pauseBtnElem, setPauseBtn] = createSignal<HTMLButtonElement>();
+  const [videoElem, setVideoElem] = createSignal<HTMLVideoElement>();
+  const [inputsElem, setInputsElem] = createSignal<HTMLDivElement>();
+  const [downscaleFactorElement, setDownscaleFactorElement] =
+    createSignal<HTMLInputElement>();
+  const [tableElem, setTableElem] = createSignal<HTMLTableElement>();
 
   onMount(() => {
+    const playBtn = playBtnElem()!;
+    const pauseBtn = pauseBtnElem()!;
+    const video = videoElem()!;
+    const inputs = inputsElem()!;
+    const downscaleFactorElem = downscaleFactorElement()!;
+    const table = tableElem()!;
+    const canvas = canvasElem()!;
+
     const context = canvas.getContext("2d", { willReadFrequently: true });
+
     if (!context) return;
     canvas.width = video.width;
     canvas.height = video.height;
     let downscaleFactor = 3;
-
-    function createTable(height: number, width: number) {
-      const body = document.createElement("tbody");
-
-      for (let y = 0; y < height; y++) {
-        let row = tableElem.insertRow(y);
-        for (let x = 0; x < width; x++) {
-          row.insertCell(x);
-        }
-      }
-
-      tableElem.appendChild(body);
-      return tableElem;
-    }
 
     function fillTableCell(
       table: HTMLTableElement,
@@ -52,16 +71,19 @@ export function BadApple() {
       pauseBtn.style.display = "none";
     };
 
-    playBtn.addEventListener("click", () => {
-      tableElem = createTable(
-        canvas.height / downscaleFactor,
-        canvas.width / downscaleFactor
+    makeEventListener(playBtn, "click", () => {
+      setTableElem(
+        createTable({
+          table,
+          height: canvas.height / downscaleFactor,
+          width: canvas.width / downscaleFactor,
+        })
       );
       inputs.style.display = "none";
       video.play();
     });
 
-    pauseBtn.addEventListener("click", () => {
+    makeEventListener(pauseBtn, "click", () => {
       if (video.paused) {
         video.play();
         return;
@@ -69,11 +91,11 @@ export function BadApple() {
       video.pause();
     });
 
-    video.addEventListener("pause", () => {
+    makeEventListener(video, "pause", () => {
       pauseBtn.textContent = "resume";
     });
 
-    video.addEventListener("play", () => {
+    makeEventListener(video, "play", () => {
       playBtn.style.display = "none";
       pauseBtn.style.display = "block";
       pauseBtn.textContent = "pause";
@@ -86,7 +108,7 @@ export function BadApple() {
           for (let x = 0; x < video.width; x += downscaleFactor) {
             // the table size is already downscaled by the `downscaleFactor`
             fillTableCell(
-              tableElem,
+              table,
               x / downscaleFactor,
               y / downscaleFactor,
               getRGBColorFromPixel(context!, x, y)
@@ -100,18 +122,18 @@ export function BadApple() {
       requestAnimationFrame(draw);
     });
 
-    downscaleFactorElem.addEventListener("change", () => {
+    makeEventListener(downscaleFactorElem, "change", () => {
       downscaleFactor = downscaleFactorElem.valueAsNumber;
     });
   });
 
   return (
     <>
-      <div ref={inputs!} class="pt-4">
+      <div ref={setInputsElem} class="pt-4">
         <input
           type="number"
           id="downscalefactor"
-          ref={downscaleFactorElem!}
+          ref={setDownscaleFactorElement}
           placeholder="3"
           value="3"
         />
@@ -121,21 +143,24 @@ export function BadApple() {
       </div>
       <video
         src="/projects/badapple/badapple.mp4"
-        ref={video!}
+        ref={setVideoElem}
         width="160"
         height="120"
       ></video>
       <br />
+      <table ref={setTableElem}></table>
       <button
-        ref={playBtn!}
-        class="mx-2 bg-white text-black px-2 py-1 rounded-md"
+        ref={setPlayBtn}
+        class="mr-2 bg-white text-black px-2 py-1 rounded-md"
       >
         play
       </button>
-      <button ref={pauseBtn!} class="bg-white text-black px-2 py-1 rounded-md">
+      <button
+        ref={setPauseBtn}
+        class="bg-white text-black px-2 py-1 rounded-md"
+      >
         pause/resume
       </button>
-      <table ref={tableElem!}></table>
     </>
   );
 }
