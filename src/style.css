@@ -1,5 +1,37 @@
-body {
-    color-scheme: dark;
-    background-color: #191919;
-    color: white;
-}
+@font-face {
+    font-family: "Geist Mono";
+    src:
+      url("/fonts/GeistMono.woff2") format("woff2"),
+      url("/fonts/GeistMono.ttf") format("ttf");
+    font-display: block;
+    font-weight: 70;
+  }
+  
+  html {
+    --at-apply: "ml-[calc(100vw-100%)] mr-0 [color-scheme:dark] h-full antialiased touch-manipulation scroll-smooth";
+  }
+  
+  body {
+    --at-apply: "font-geist m-auto p-4 text-left max-w-64ch h-full grid gap-10px grid-cols-[1fr] grid-rows-[1fr]";
+    grid-template-areas: "main" "footer";
+  }
+  
+  h1 {
+    --at-apply: "text-4xl font-bold my-2";
+  }
+  
+  h2 {
+    --at-apply: "text-3xl font-bold my-2";
+  }
+  
+  h3 {
+    --at-apply: "text-2xl font-bold my-2";
+  }
+  
+  p {
+    --at-apply: "text-md my-2";
+  }
+  
+  span {
+    --at-apply: "text-md my-2";
+  }

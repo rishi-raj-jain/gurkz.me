@@ -1,0 +1,31 @@
+---
+import "../../style.css";
+import { ViewTransitions } from "astro:transitions";
+type Props = {
+  title: string;
+};
+
+const { title } = Astro.props;
+---
+
+<meta charset="utf-8" />
+<link rel="icon" type="image/ico" href="/favicon.ico" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<meta name="viewport" content="width=device-width" />
+<meta name="generator" content={Astro.generator} />
+<title>{title}</title>
+<link
+  rel="preload"
+  href="/fonts/GeistMono.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
+<link
+  rel="preload"
+  href="/fonts/GeistMono.ttf"
+  as="font"
+  type="font/ttf"
+  crossorigin
+/>
+<ViewTransitions />
