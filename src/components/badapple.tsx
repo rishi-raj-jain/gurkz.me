@@ -67,9 +67,7 @@ export function BadApple() {
       return `rgb(${data[0]}, ${data[1]}, ${data[2]})`;
     }
 
-    onload = () => {
-      pauseBtn.style.display = "none";
-    };
+    pauseBtn.style.display = "none";
 
     makeEventListener(playBtn, "click", () => {
       setTableElem(
@@ -146,6 +144,7 @@ export function BadApple() {
         ref={setVideoElem}
         width="160"
         height="120"
+        controls
       ></video>
       <br />
       <table ref={setTableElem}></table>

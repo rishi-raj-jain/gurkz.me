@@ -9,6 +9,10 @@ import { BadApple } from "../../components/badapple";
     bad apple in HTML <i class="text-xl">technically solidjs but shhh</i>
   </h1>
   <BadApple client:only />
+  <noscript>
+    <h3>hi!</h3>
+    <p>you need javascript for this...</p>
+  </noscript>
 </Layout>
 
 <style is:inline>
@@ -33,9 +37,5 @@ import { BadApple } from "../../components/badapple";
   body {
     background-color: #121212;
     color: #ffff;
-  }
-
-  video {
-    display: none;
   }
 </style>
