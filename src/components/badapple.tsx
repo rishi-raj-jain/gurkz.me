@@ -143,14 +143,10 @@ export function BadApple() {
         <br />
         <hr />
       </div>
-      <video
-        src={video}
-        ref={setVideoElem}
-        width="160"
-        height="120"
-        controls
-        playsinline
-      ></video>
+      <video ref={setVideoElem} width="160" height="120" controls playsinline>
+        <source src={video} type="video/mp4" />
+        your browser does not support the video tag
+      </video>
       <br />
       <table ref={setTableElem}></table>
       <button
