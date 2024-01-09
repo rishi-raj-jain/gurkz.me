@@ -1,5 +1,6 @@
 import { createSignal, onMount } from "solid-js";
 import { makeEventListener } from "@solid-primitives/event-listener";
+import video from "../pages/projects/badapple.mp4";
 
 type CreateTableProps = {
   table: HTMLTableElement;
@@ -68,16 +69,19 @@ export function BadApple() {
     }
 
     pauseBtn.style.display = "none";
+    setTableElem(
+      createTable({
+        table,
+        height: canvas.height / downscaleFactor,
+        width: canvas.width / downscaleFactor,
+      })
+    );
+
+    makeEventListener(video, "play", () => {
+      inputs.style.display = "none";
+    });
 
     makeEventListener(playBtn, "click", () => {
-      setTableElem(
-        createTable({
-          table,
-          height: canvas.height / downscaleFactor,
-          width: canvas.width / downscaleFactor,
-        })
-      );
-      inputs.style.display = "none";
       video.play();
     });
 
@@ -140,7 +144,7 @@ export function BadApple() {
         <hr />
       </div>
       <video
-        src="/projects/badapple/badapple.mp4"
+        src={video}
         ref={setVideoElem}
         width="160"
         height="120"
