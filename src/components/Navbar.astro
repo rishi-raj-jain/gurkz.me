@@ -1,5 +1,5 @@
 ---
-import { Navbar } from "./Navbar";
+import { Navbar as Bar } from "./Navbar";
 
 export type Link = {
   title: string;
@@ -17,7 +17,7 @@ const { links } = Astro.props;
   <div class="flex flex-row justify-center gap-2">
     {
       links.map((link) => (
-        <Navbar.Link href={link.href}>{link.title}</Navbar.Link>
+        <Bar.Link href={link.href}>{link.title}</Bar.Link>
       ))
     }
   </div>
