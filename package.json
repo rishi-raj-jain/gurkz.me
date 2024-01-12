@@ -16,6 +16,7 @@
     "@unocss/reset": "^0.58.3",
     "@unocss/transformer-directives": "^0.58.3",
     "astro": "^4.0.9",
+    "astro-font": "^0.0.71",
     "solid-js": "^1.8.7",
     "typescript": "^5.3.3",
     "unocss": "^0.58.3"

@@ -1,13 +1,4 @@
-@font-face {
-    font-family: "Geist Mono";
-    src:
-      url("/fonts/GeistMono.woff2") format("woff2"),
-      url("/fonts/GeistMono.ttf") format("ttf");
-    font-display: block;
-    font-weight: 70;
-  }
-  
-  html {
+html {
     --at-apply: "ml-[calc(100vw-100%)] mr-0 [color-scheme:dark] h-full antialiased touch-manipulation scroll-smooth";
   }
   
