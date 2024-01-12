@@ -15,10 +15,6 @@ const { links } = Astro.props;
 
 <header class="pb-2 text-center">
   <div class="flex flex-row justify-center gap-2">
-    {
-      links.map((link) => (
-        <Bar.Link href={link.href}>{link.title}</Bar.Link>
-      ))
-    }
+    {links.map((link) => <Bar.Link href={link.href}>{link.title}</Bar.Link>)}
   </div>
 </header>
