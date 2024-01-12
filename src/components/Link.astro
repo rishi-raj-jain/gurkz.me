@@ -1,22 +1,25 @@
 ---
 type Props = {
   href: string;
+  underlined?: boolean;
 };
 
-const { href } = Astro.props;
+const { href, underlined } = Astro.props;
 
 const pathname = new URL(Astro.request.url).pathname;
 
 const isExternal = href.startsWith("http");
-const isUnderlined = isExternal || pathname === href;
+const isUnderlined = isExternal || pathname === href || underlined;
 ---
 
 <a
   href={href}
   target={isExternal ? "_blank" : "_self"}
-  class={isUnderlined
-    ? "underline decoration-themeColor underline-offset-4 transition-colors"
-    : ""}
+  class={`inline-block ${
+    isUnderlined
+      ? "underline decoration-themeColor text-themeColor underline-offset-4 transition-colors"
+      : "text-white decoration-none"
+  }`}
 >
   <slot />
 </a>
