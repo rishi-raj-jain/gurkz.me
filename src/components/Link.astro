@@ -6,7 +6,7 @@ type Props = {
 
 const { href, underlined } = Astro.props;
 
-const pathname = new URL(Astro.request.url).pathname;
+const pathname = new URL(Astro.request.url).pathname.slice(0, -1);
 
 const isExternal = href.startsWith("http");
 const isUnderlined = isExternal || pathname === href || underlined;
