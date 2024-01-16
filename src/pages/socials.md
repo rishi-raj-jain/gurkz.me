@@ -1,4 +1,5 @@
 ---
+title: "socials"
 layout: ../layouts/Layout.astro
 ---
 
