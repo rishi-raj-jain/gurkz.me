@@ -82,7 +82,11 @@ export function BadApple() {
     });
 
     makeEventListener(playBtn, "click", () => {
-      video.play();
+      try {
+        video.play();
+      } catch (e) {
+        alert("uh oh")
+      }
     });
 
     makeEventListener(pauseBtn, "click", () => {
@@ -144,7 +148,7 @@ export function BadApple() {
         <hr />
       </div>
       <video ref={setVideoElem} width="160" height="120" controls playsinline>
-        <source src={video} type="video/mp4" />
+        <source src="https://api.gurkz.me/badapple.mp4" type="video/mp4" />
         your browser does not support the video tag
       </video>
       <br />
