@@ -26,3 +26,7 @@ html {
   span {
     --at-apply: "text-md my-2";
   }
+
+a {
+    --at-apply: "underline decoration-themeColor text-themeColor underline-offset-4 transition-colors inline-block"
+}
