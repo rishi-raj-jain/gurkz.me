@@ -9,12 +9,17 @@ const { href, underlined } = Astro.props;
 function getPathname() {
   const _pathname = new URL(Astro.request.url).pathname;
 
+  if (_pathname.slice(-1) === "/" && _pathname !== "/") {
+    return _pathname.slice(0, -1);
+  }
+
   if (_pathname === "/") return _pathname;
 
-  return _pathname.slice(0, -1);
+  return _pathname;
 }
 
 const pathname = getPathname();
+console.log(pathname);
 
 const isExternal = href.startsWith("http");
 const isUnderlined = isExternal || pathname === href || underlined;

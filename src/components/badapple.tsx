@@ -1,6 +1,5 @@
 import { createSignal, onMount } from "solid-js";
 import { makeEventListener } from "@solid-primitives/event-listener";
-import video from "../pages/projects/badapple.mp4";
 
 type CreateTableProps = {
   table: HTMLTableElement;
@@ -88,7 +87,7 @@ export function BadApple() {
       try {
         video.play();
       } catch (e) {
-        alert("uh oh")
+        alert("uh oh");
       }
     });
 
@@ -113,7 +112,7 @@ export function BadApple() {
 
       function draw() {
         try {
-          context.drawImage(frame, 0, 0, canvas.width, canvas.height);
+          context!.drawImage(frame, 0, 0, canvas.width, canvas.height);
         } catch (e) {
           alert("cannot draw");
         }
