@@ -112,7 +112,11 @@ export function BadApple() {
       let frame = video;
 
       function draw() {
-        context!.drawImage(frame, 0, 0, canvas.width, canvas.height);
+        try {
+          context.drawImage(frame, 0, 0, canvas.width, canvas.height);
+        } catch (e) {
+          alert("cannot draw");
+        }
         for (let y = 0; y < video.height; y += downscaleFactor) {
           for (let x = 0; x < video.width; x += downscaleFactor) {
             // the table size is already downscaled by the `downscaleFactor`
