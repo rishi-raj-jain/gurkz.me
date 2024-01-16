@@ -45,7 +45,10 @@ export function BadApple() {
 
     const context = canvas.getContext("2d", { willReadFrequently: true });
 
-    if (!context) return;
+    if (!context) {
+      alert("no context");
+      return;
+    }
     canvas.width = video.width;
     canvas.height = video.height;
     let downscaleFactor = 3;
