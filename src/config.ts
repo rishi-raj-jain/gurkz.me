@@ -1,7 +1,7 @@
 type SocialAccount = {
-    platform: string,
-    username: string,
-    link?: string
+    platform: string;
+    username: string;
+    link?: string;
 }
 
 export const SITE_TITLE = "gurkan -";
