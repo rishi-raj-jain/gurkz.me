@@ -9,7 +9,9 @@ import type { MarkdownLayoutProps } from 'astro';
 type Props = MarkdownLayoutProps<{
   // Define frontmatter props here
   title: string
-}>;
+}> || {
+  title: string
+}
 
 const { title } = Astro.props.frontmatter || Astro.props;
 ---
