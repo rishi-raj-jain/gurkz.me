@@ -19,7 +19,6 @@ function getPathname() {
 }
 
 const pathname = getPathname();
-console.log(pathname);
 
 const isExternal = href.startsWith("http");
 const isUnderlined = isExternal || pathname === href || underlined;

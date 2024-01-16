@@ -1,0 +1,17 @@
+---
+title: "bad apple in HTML"
+description: "bad apple remade in HTML"
+slug: "badapple"
+needsJS: true
+---
+
+import { BadApple } from "../components/badapple";
+import Card from "../components/Card.astro";
+
+<Card type="warning">
+  this currently does not work on safari on mobile, i'm working on a fix
+</Card>
+<BadApple client:only />
+<p class="font-italic">
+  note from gurkan: this does not work on safari, because safari is dum dum
+</p>

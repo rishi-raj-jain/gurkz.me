@@ -1,14 +1,38 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Link from "../../components/Link.astro";
+
+type Frontmatter = {
+  title: string;
+  description: string;
+  slug: string;
+};
+
+async function getProjectFiles() {
+  const projects = await Astro.glob<Frontmatter>("../../projects/**/*.mdx");
+
+  return projects;
+}
+
+const projects = await getProjectFiles();
 ---
 
 <Layout title="projects">
   <h1 class="text-4xl">projects</h1>
   <p>welcome to my projects</p>
   <ul class="list-disc list-inside">
-    <li class="underline font-bold">
-      <Link underlined href="/projects/badapple">bad apple in HTML</Link>
-    </li>
+    {
+      projects.map((project) => {
+        return (
+          <li class="underline font-bold">
+            <a
+              href={`/projects/${project.frontmatter.slug}`}
+              transition:name={`${project.frontmatter.title}-title`}
+            >
+              {project.frontmatter.title}
+            </a>
+          </li>
+        );
+      })
+    }
   </ul>
 </Layout>

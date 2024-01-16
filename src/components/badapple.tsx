@@ -1,5 +1,7 @@
 import { createSignal, onMount } from "solid-js";
+import video from "../projects/badapple.mp4";
 import { makeEventListener } from "@solid-primitives/event-listener";
+import "./badapple.css";
 
 type CreateTableProps = {
   table: HTMLTableElement;
@@ -154,11 +156,15 @@ export function BadApple() {
         <hr />
       </div>
       <video ref={setVideoElem} width="160" height="120" controls playsinline>
+        <source src={video} type="video/mp4" />
         <source src="https://api.gurkz.me/badapple.mp4" type="video/mp4" />
         your browser does not support the video tag
       </video>
       <br />
-      <table ref={setTableElem}></table>
+      <table
+        style={{ "border-collapse": "collapse" }}
+        ref={setTableElem}
+      ></table>
       <button
         ref={setPlayBtn}
         class="mr-2 bg-white text-black px-2 py-1 rounded-md"
