@@ -4,16 +4,11 @@ import Header from "../components/Header.astro";
 import Meta from "../components/meta/Meta.astro";
 import { SITE_TITLE } from "../config";
 
-import type { MarkdownLayoutProps } from 'astro';
-
-type Props = MarkdownLayoutProps<{
-  // Define frontmatter props here
-  title: string
-}> || {
+type Props = {
   title: string
 }
 
-const { title } = Astro.props.frontmatter || Astro.props;
+const { title } = Astro.props;
 ---
 
 <html lang="en">

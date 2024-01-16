@@ -1,6 +1,6 @@
 ---
 title: "socials"
-layout: ../layouts/Layout.astro
+layout: ../layouts/MarkdownLayout.astro
 ---
 
 # socials
