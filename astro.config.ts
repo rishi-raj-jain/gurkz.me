@@ -6,5 +6,8 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [uno(), solidJs(), mdx()]
+  integrations: [uno(), solidJs(), mdx()],
+  prefetch: {
+    prefetchAll: true,
+  },
 });
