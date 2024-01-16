@@ -8,10 +8,11 @@ import { SOCIAL_ACCOUNTS } from "../config.ts";
 
 hello, you can basically find me everywhere with the username @thatgurkangurk :)
 
-{SOCIAL_ACCOUNTS.map((account) =>
-    <div>
-       <a href={account.link}>{account.platform}</a>
-    </div>
+{SOCIAL_ACCOUNTS.map((account) => {
+    if (account.link) return <div><a href={account.link}>{account.platform}</a></div>
+
+    return <div>{account.platform}: {account.username}</div>
+}
 )}
 
 </Layout>
