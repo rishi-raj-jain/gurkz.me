@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { SOCIAL_ACCOUNTS } from "../config.ts";
+---
+
+<Layout title="socials">
+<h1 class="text-4xl">socials</h1>
+
+hello, you can basically find me everywhere with the username @thatgurkangurk :)
+
+{SOCIAL_ACCOUNTS.map((account) =>
+    <div>
+       <a href={account.link}>{account.platform}</a>
+    </div>
+)}
+
+</Layout>
