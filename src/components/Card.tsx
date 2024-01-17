@@ -5,6 +5,7 @@ import { twMerge } from "tailwind-merge";
 const cardVariants = cva("my-2 px-4 rounded-md p-2 text-center", {
   variants: {
     type: {
+      success: "bg-teal-400",
       warning: "bg-orange-500",
       error: "bg-red-600 font-bold",
     },
