@@ -1,5 +1,19 @@
 ---
-import { Navbar } from "./Navbar";
+import { Navbar } from "./Navbar.tsx";
+
+function getPathname() {
+  const _pathname = new URL(Astro.request.url).pathname;
+
+  if (_pathname.slice(-1) === "/" && _pathname !== "/") {
+    return _pathname.slice(0, -1);
+  }
+
+  if (_pathname === "/") return _pathname;
+
+  return _pathname;
+}
+
+const pathname = getPathname();
 ---
 
 <header>
@@ -8,7 +22,8 @@ import { Navbar } from "./Navbar";
     links={[
       { href: "/", title: "home" },
       { href: "/projects", title: "projects" },
-      { href: "/socials", title: "socials" }
+      { href: "/socials", title: "socials" },
     ]}
+    current={pathname}
   />
 </header>
