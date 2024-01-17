@@ -1,22 +1,26 @@
-import type { JSXElement } from "solid-js"
+import type { JSXElement } from "solid-js";
+import { cva, type VariantProps } from "cva";
+import { twMerge } from "tailwind-merge";
+
+const cardVariants = cva("my-2 px-4 rounded-md p-2 text-center", {
+  variants: {
+    type: {
+      warning: "bg-orange-500",
+      error: "bg-red-600 font-bold",
+    },
+    defaultVariants: {
+      type: "warning",
+    },
+  },
+});
 
 type Props = {
-  type: "warning" | "error";
   children: JSXElement
-};
-
-function getColourFromType(type: Props["type"]) {
-  switch (type) {
-    case "error":
-      return "bg-red-600 font-bold";
-    case "warning":
-      return "bg-orange-500";
-  }
-}
+} & VariantProps<typeof cardVariants>;
 
 function Card(props: Props) {
  return (
-    <div class={`my-2 px-4 rounded-md ${getColourFromType(props.type)} p-2 text-center`}>
+    <div class={twMerge(cardVariants({ type: props.type }))}>
       {props.children}
     </div>
  )
