@@ -1,5 +1,8 @@
+import type { JSXElement } from "solid-js"
+
 type Props = {
   type: "warning" | "error";
+  children: JSXElement
 };
 
 function getColourFromType(type: Props["type"]) {
@@ -14,7 +17,7 @@ function getColourFromType(type: Props["type"]) {
 function Card(props: Props) {
  return (
     <div class={`my-2 px-4 rounded-md ${getColourFromType(props.type)} p-2 text-center`}>
-      <slot />
+      {props.children}
     </div>
  )
 }
