@@ -1,5 +1,5 @@
 import { createSignal, onMount } from "solid-js";
-import video from "../projects/badapple.mp4";
+import video from "./badapple.mp4";
 import { makeEventListener } from "@solid-primitives/event-listener";
 import "./badapple.css";
 

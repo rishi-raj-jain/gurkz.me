@@ -16,15 +16,15 @@ const cardVariants = cva("my-2 px-4 rounded-md p-2 text-center", {
 });
 
 type Props = {
-  children: JSXElement
+  children: JSXElement;
 } & VariantProps<typeof cardVariants>;
 
 function Card(props: Props) {
- return (
+  return (
     <div class={twMerge(cardVariants({ type: props.type }))}>
       {props.children}
     </div>
- )
+  );
 }
 
-export { Card }
+export { Card };
