@@ -1,9 +1,6 @@
----
 type Props = {
   type: "warning" | "error";
 };
-
-const { type } = Astro.props;
 
 function getColourFromType(type: Props["type"]) {
   switch (type) {
@@ -13,8 +10,13 @@ function getColourFromType(type: Props["type"]) {
       return "bg-orange-500";
   }
 }
----
 
-<div class={`my-2 px-4 rounded-md ${getColourFromType(type)} p-2 text-center`}>
-  <slot />
-</div>
+function Card(props: Props) {
+ return (
+    <div class={`my-2 px-4 rounded-md ${getColourFromType(props.type)} p-2 text-center`}>
+      <slot />
+    </div>
+ )
+}
+
+export { Card }
