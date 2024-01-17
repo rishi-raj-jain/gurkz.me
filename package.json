@@ -18,6 +18,8 @@
     "@unocss/transformer-directives": "^0.58.3",
     "astro": "^4.0.9",
     "astro-font": "^0.0.71",
+    "clsx": "^2.1.0",
+    "cva": "npm:class-variance-authority",
     "solid-js": "^1.8.7",
     "typescript": "^5.3.3",
     "unocss": "^0.58.3"
