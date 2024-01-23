@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { Card } from "../../components/Card.tsx";
 
 type Frontmatter = {
   title: string;
@@ -19,6 +20,7 @@ const projects = await getProjectFiles();
 <Layout title="projects">
   <h1 class="text-4xl">projects</h1>
   <p>welcome to my projects</p>
+  <Card type="info">most of these requires you to have javascript enabled</Card>
   <ul>
     {
       projects.map((project) => {

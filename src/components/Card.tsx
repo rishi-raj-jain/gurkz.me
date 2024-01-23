@@ -1,12 +1,13 @@
 import { Switch, type JSXElement, Match } from "solid-js";
 import { cva, type VariantProps } from "cva";
 import { twMerge } from "tailwind-merge";
-import { BiRegularError, BiRegularErrorAlt } from "solid-icons/bi";
+import { BiRegularError, BiRegularErrorAlt, BiRegularInfoCircle } from "solid-icons/bi";
 import { BsCheckLg } from "solid-icons/bs";
 
 const cardVariants = cva("my-2 px-4 rounded-md p-2 flex gap-2 items-center", {
   variants: {
     type: {
+      info: "bg-slate-500 text-white",
       success: "bg-teal-600",
       warning: "bg-orange-500",
       error: "bg-red-600 font-bold",
@@ -26,6 +27,9 @@ function Card(props: Props) {
     <div class={twMerge(cardVariants({ type: props.type }))}>
       <div>
         <Switch fallback={<></>}>
+          <Match when={props.type === "info"}>
+            <BiRegularInfoCircle size={32} />
+          </Match>
           <Match when={props.type === "success"}>
             <BsCheckLg size={32} />
           </Match>
