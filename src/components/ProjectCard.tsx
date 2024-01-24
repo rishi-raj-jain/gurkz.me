@@ -14,13 +14,13 @@ function ProjectCard(props: ProjectCardProps) {
     <div class="bg-green-500 p-4 m-4 rounded-md hover:shadow-lg">
         <a
             href={`/projects/${props.project.slug}`}
-            style={`view-transitiom-name:${props.project.title}-title`}
+            style={`view-transition-name:${props.project.title}-title`}
             class="text-white"
         >
             <span class="text-xl">{props.project.title}</span>
             <span class="italic">{props.project.description}</span>
         </a>
-    </div
+    </div>
    )
 }
 
