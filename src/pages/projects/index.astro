@@ -23,7 +23,7 @@ const projects = await getProjectFiles();
   <h1 class="text-4xl">projects</h1>
   <p>welcome to my projects</p>
   <Card type="info">most of these requires you to have javascript enabled</Card>
-  <ul>
+  <div class="grid gap-2">
     {
       projects.map((project) => {
         return (
@@ -36,5 +36,5 @@ const projects = await getProjectFiles();
         );
       })
     }
-  </ul>
+  </div>
 </Layout>
