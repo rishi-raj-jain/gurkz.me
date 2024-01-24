@@ -14,9 +14,9 @@ function ProjectCard(props: ProjectCardProps) {
     <li class="underline font-bold">
         <a
             href={`/projects/${props.project.slug}`}
-            transition:name={`${props.project.title}-title`}
+            style={`view-transitiom-name:${props.project.title-title}`}
         >
-            {project.title}
+            {props.project.title}
         </a>
     </li>
    )
