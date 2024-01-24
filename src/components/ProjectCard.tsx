@@ -11,17 +11,17 @@ type ProjectCardProps = {
 
 function ProjectCard(props: ProjectCardProps) {
    return (
-    <div class="bg-teal-600 p-4 my-4 rounded-md hover:shadow-lg">
-        <a
+       <a
             href={`/projects/${props.project.slug}`}
             style={`view-transition-name:${props.project.title}-title`}
-            class="text-white"
+            class="text-white no-underline"
         >
-            <span class="text-xl">{props.project.title}</span>
-            <br />
-            <span class="italic">{props.project.description}</span>
+            <div class="bg-teal-600 p-4 my-4 rounded-md hover:shadow-lg">
+                <span class="text-xl font-bold">{props.project.title}</span>
+                <br />
+                <span class="italic">{props.project.description}</span>
+            </div>
         </a>
-    </div>
    )
 }
 
