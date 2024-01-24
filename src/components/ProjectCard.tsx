@@ -11,7 +11,7 @@ type ProjectCardProps = {
 
 function ProjectCard(props: ProjectCardProps) {
    return (
-    <div class="bg-green-500 p-4 my-4 rounded-md hover:shadow-lg">
+    <div class="bg-teal-600 p-4 my-4 rounded-md hover:shadow-lg">
         <a
             href={`/projects/${props.project.slug}`}
             style={`view-transition-name:${props.project.title}-title`}
