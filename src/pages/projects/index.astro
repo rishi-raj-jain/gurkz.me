@@ -1,11 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { Card } from "../../components/Card.tsx";
+import { ProjectCard } from "@/components/ProjectCard.tsx";
 
 type Frontmatter = {
   title: string;
   description: string;
   slug: string;
+  needsJS: boolean;
 };
 
 async function getProjectFiles() {
@@ -25,14 +27,12 @@ const projects = await getProjectFiles();
     {
       projects.map((project) => {
         return (
-          <li class="underline font-bold">
-            <a
-              href={`/projects/${project.frontmatter.slug}`}
-              transition:name={`${project.frontmatter.title}-title`}
-            >
-              {project.frontmatter.title}
-            </a>
-          </li>
+          <ProjectCard project={{
+            title: project.frontmatter.title,
+            description: project.frontmatter.description,
+            slug: project.frontmatter.slug,
+            needsJS: project.frontmatter.needsJS
+          }} />
         );
       })
     }
