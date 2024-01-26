@@ -38,8 +38,19 @@ export function BadApple() {
   const [tableElem, setTableElem] = createSignal<HTMLTableElement>();
 
   function checkDevice() {
-    setIsSafari(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream());
-  }
+    const result = [
+       'iPad Simulator',
+       'iPhone Simulator',
+       'iPod Simulator',
+       'iPad',
+       'iPhone',
+       'iPod'
+    ].includes(navigator.platform)
+     // iPad on iOS 13+ detection
+    || (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+
+    setIsSafari(result);
+}
 
   onMount(() => {
     checkDevice();
