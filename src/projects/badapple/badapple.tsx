@@ -4,6 +4,8 @@ import { makeEventListener } from "@solid-primitives/event-listener";
 import { Card } from "@/components/Card.tsx";
 import "./badapple.css";
 
+const [videoElem, setVideoElem] = createSignal<HTMLVideoElement>();
+
 type CreateTableProps = {
   table: HTMLTableElement;
   height: number;
@@ -24,6 +26,16 @@ function createTable(props: CreateTableProps) {
   return props.table;
 }
 
+function VideoPlayer() {
+  return (
+    <video ref={setVideoElem} width="160" height="120" controls playsinline>
+        <source src={video} type="video/mp4" />
+        <source src="https://api.gurkz.me/badapple.mp4" type="video/mp4" />
+        your browser does not support the video tag
+    </video>
+  )
+}
+
 export function BadApple() {
   const [isSafari, setIsSafari] = createSignal<boolean>(false);
   const [canvasElem] = createSignal<HTMLCanvasElement>(
@@ -31,7 +43,6 @@ export function BadApple() {
   );
   const [playBtnElem, setPlayBtn] = createSignal<HTMLButtonElement>();
   const [pauseBtnElem, setPauseBtn] = createSignal<HTMLButtonElement>();
-  const [videoElem, setVideoElem] = createSignal<HTMLVideoElement>();
   const [inputsElem, setInputsElem] = createSignal<HTMLDivElement>();
   const [downscaleFactorElement, setDownscaleFactorElement] =
     createSignal<HTMLInputElement>();
@@ -174,11 +185,7 @@ export function BadApple() {
         <br />
         <hr />
       </div>
-      <video ref={setVideoElem} width="160" height="120" controls playsinline>
-        <source src={video} type="video/mp4" />
-        <source src="https://api.gurkz.me/badapple.mp4" type="video/mp4" />
-        your browser does not support the video tag
-      </video>
+      <VideoPlayer />
       <br />
       <table
         style={{ "border-collapse": "collapse" }}
