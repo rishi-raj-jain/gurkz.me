@@ -41,9 +41,11 @@ const { Content, frontmatter } = Astro.props.project;
       </noscript>
     )
   }
-  <h1 class="text-4xl" transition:name={`${frontmatter.title}-title`}>
+  <h1 class="text-4xl" transition:name={`${frontmatter.slug}-title`}>
     {frontmatter.title}
   </h1>
-  <p>{frontmatter.description}</p>
+  <p transition:name={`${frontmatter.slug}-description`}>
+    {frontmatter.description}
+  </p>
   <Content />
 </Layout>

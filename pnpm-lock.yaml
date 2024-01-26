@@ -17,9 +17,9 @@ dependencies:
   '@kobalte/core':
     specifier: ^0.12.0
     version: 0.12.1(solid-js@1.8.12)
-  '@solid-primitives/event-listener':
-    specifier: ^2.3.0
-    version: 2.3.1(solid-js@1.8.12)
+  '@solid-primitives/event-bus':
+    specifier: ^1.0.9
+    version: 1.0.9(solid-js@1.8.12)
   '@unocss/reset':
     specifier: ^0.58.3
     version: 0.58.3
@@ -1059,6 +1059,15 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@solid-primitives/event-bus@1.0.9(solid-js@1.8.12):
+    resolution: {integrity: sha512-BI9dla3GQzINsufEzr/CV3B/9e0D1pyk7Ig6kPI6s4geUkiVgFadY5V8R95PEeHH1NagOny7AHpw+RaRIuBpkA==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/utils': 6.2.2(solid-js@1.8.12)
+      solid-js: 1.8.12
+    dev: false
 
   /@solid-primitives/event-listener@2.3.1(solid-js@1.8.12):
     resolution: {integrity: sha512-S1AfFYatOJ3g/ZUbGDoKplSGLTTfarQ3Mfd3F/fXb9SnzGtROtd+Y6yLkPVzK4AVw83r2wUSaS0GS6dg8izTEQ==}
