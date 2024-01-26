@@ -1,6 +1,7 @@
-import { createSignal, onMount } from "solid-js";
+import { createSignal, onMount, Switch, Match } from "solid-js";
 import video from "./badapple.mp4";
 import { makeEventListener } from "@solid-primitives/event-listener";
+import { Card } from "@/components/Card.tsx";
 import "./badapple.css";
 
 type CreateTableProps = {
@@ -24,6 +25,7 @@ function createTable(props: CreateTableProps) {
 }
 
 export function BadApple() {
+  const [isSafari, setIsSafari] = createSignal<boolean>(false);
   const [canvasElem] = createSignal<HTMLCanvasElement>(
     document.createElement("canvas")
   );
@@ -35,7 +37,12 @@ export function BadApple() {
     createSignal<HTMLInputElement>();
   const [tableElem, setTableElem] = createSignal<HTMLTableElement>();
 
+  function checkDevice() {
+    setIsSafari(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream());
+  }
+
   onMount(() => {
+    checkDevice();
     const playBtn = playBtnElem()!;
     const pauseBtn = pauseBtnElem()!;
     const video = videoElem()!;
@@ -142,7 +149,8 @@ export function BadApple() {
   });
 
   return (
-    <>
+    <Switch fallback={<p>uh oh</p>}>
+      <Match when={!isSafari()}>
       <div ref={setInputsElem} class="pt-4">
         <input
           type="number"
@@ -177,6 +185,13 @@ export function BadApple() {
       >
         pause/resume
       </button>
-    </>
+      </Match>
+      <Match when={isSafari()}>
+        <Card type="error">
+          you seem to be on iOS (or iPadOS), this won't work on there.
+          i am working on a solution, thanks for your patience
+        </Card>
+      </Match>
+    </Switch>
   );
 }
