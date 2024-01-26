@@ -200,7 +200,7 @@ export function BadApple() {
       <Match when={isSafari()}>
         <Card type="error">
           you seem to be on iOS (or iPadOS), this won't work on there.
-          i am working on a solution, thanks for your patience
+          i am working on a solution, thanks for your patience. <a href="https://github.com/thatgurkangurk/gurkz.me/issues/10">learn more</a>
         </Card>
       </Match>
     </Switch>
