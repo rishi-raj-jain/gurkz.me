@@ -1,21 +1,29 @@
-import { createSignal, onMount } from "solid-js";
+import { createSignal, onMount, Switch, Match, Show } from "solid-js";
 import video from "./badapple.mp4";
-import { makeEventListener } from "@solid-primitives/event-listener";
-import "./badapple.css";
+import { Card } from "@/components/Card.tsx";
+import { createEmitter } from "@solid-primitives/event-bus";
 
-type CreateTableProps = {
+const [videoElem, setVideoElem] = createSignal<HTMLVideoElement>();
+const events = createEmitter<{
+  play: HTMLVideoElement;
+  pause: HTMLVideoElement;
+}>();
+
+function createTable(props: {
   table: HTMLTableElement;
   height: number;
   width: number;
-};
-
-function createTable(props: CreateTableProps) {
+}) {
   const body = document.createElement("tbody");
 
   for (let y = 0; y < props.height; y++) {
     let row = props.table.insertRow(y);
+    row.style.width = "5px";
+    row.style.height = "5px";
     for (let x = 0; x < props.width; x++) {
-      row.insertCell(x);
+      let cell = row.insertCell(x);
+      cell.style.width = "5px";
+      cell.style.height = "5px";
     }
   }
 
@@ -23,24 +31,58 @@ function createTable(props: CreateTableProps) {
   return props.table;
 }
 
+function VideoPlayer() {
+  return (
+    <video
+      onPlay={() => {
+        events.emit("play", videoElem()!);
+      }}
+      onPause={() => {
+        events.emit("pause", videoElem()!);
+      }}
+      ref={setVideoElem}
+      width="160"
+      height="120"
+      controls
+      playsinline
+    >
+      <source src={video} type="video/mp4" />
+      <source src="https://api.gurkz.me/badapple.mp4" type="video/mp4" />
+      your browser does not support the video tag
+    </video>
+  );
+}
+
 export function BadApple() {
+  const [isSafari, setIsSafari] = createSignal<boolean>(false);
   const [canvasElem] = createSignal<HTMLCanvasElement>(
     document.createElement("canvas")
   );
-  const [playBtnElem, setPlayBtn] = createSignal<HTMLButtonElement>();
-  const [pauseBtnElem, setPauseBtn] = createSignal<HTMLButtonElement>();
-  const [videoElem, setVideoElem] = createSignal<HTMLVideoElement>();
-  const [inputsElem, setInputsElem] = createSignal<HTMLDivElement>();
-  const [downscaleFactorElement, setDownscaleFactorElement] =
-    createSignal<HTMLInputElement>();
+  //? this is basically only used to hide the downscale factor input
+  const [isDefault, setIsDefault] = createSignal<boolean>(true);
   const [tableElem, setTableElem] = createSignal<HTMLTableElement>();
+  const [downscaleFactor, setDownscaleFactor] = createSignal<number>(3);
+
+  function checkDevice() {
+    const result =
+      [
+        "iPad Simulator",
+        "iPhone Simulator",
+        "iPod Simulator",
+        "iPad",
+        "iPhone",
+        "iPod",
+      ].includes(navigator.platform) ||
+      // iPad on iOS 13+ detection
+      (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+
+    setIsSafari(result);
+  }
 
   onMount(() => {
-    const playBtn = playBtnElem()!;
-    const pauseBtn = pauseBtnElem()!;
+    checkDevice();
+    setIsDefault(true);
     const video = videoElem()!;
-    const inputs = inputsElem()!;
-    const downscaleFactorElem = downscaleFactorElement()!;
     const table = tableElem()!;
     const canvas = canvasElem()!;
 
@@ -52,7 +94,6 @@ export function BadApple() {
     }
     canvas.width = video.width;
     canvas.height = video.height;
-    let downscaleFactor = 3;
 
     function fillTableCell(
       table: HTMLTableElement,
@@ -72,44 +113,16 @@ export function BadApple() {
       return `rgb(${data[0]}, ${data[1]}, ${data[2]})`;
     }
 
-    pauseBtn.style.display = "none";
     setTableElem(
       createTable({
         table,
-        height: canvas.height / downscaleFactor,
-        width: canvas.width / downscaleFactor,
+        height: canvas.height / downscaleFactor(),
+        width: canvas.width / downscaleFactor(),
       })
     );
 
-    makeEventListener(video, "play", () => {
-      inputs.style.display = "none";
-    });
-
-    makeEventListener(playBtn, "click", () => {
-      try {
-        video.play();
-      } catch (e) {
-        alert("uh oh");
-      }
-    });
-
-    makeEventListener(pauseBtn, "click", () => {
-      if (video.paused) {
-        video.play();
-        return;
-      }
-      video.pause();
-    });
-
-    makeEventListener(video, "pause", () => {
-      pauseBtn.textContent = "resume";
-    });
-
-    makeEventListener(video, "play", () => {
-      playBtn.style.display = "none";
-      pauseBtn.style.display = "block";
-      pauseBtn.textContent = "pause";
-
+    events.on("play", (video) => {
+      setIsDefault(false);
       let frame = video;
 
       function draw() {
@@ -118,13 +131,13 @@ export function BadApple() {
         } catch (e) {
           alert("cannot draw");
         }
-        for (let y = 0; y < video.height; y += downscaleFactor) {
-          for (let x = 0; x < video.width; x += downscaleFactor) {
+        for (let y = 0; y < video.height; y += downscaleFactor()) {
+          for (let x = 0; x < video.width; x += downscaleFactor()) {
             // the table size is already downscaled by the `downscaleFactor`
             fillTableCell(
               table,
-              x / downscaleFactor,
-              y / downscaleFactor,
+              x / downscaleFactor(),
+              y / downscaleFactor(),
               getRGBColorFromPixel(context!, x, y)
             );
           }
@@ -135,48 +148,44 @@ export function BadApple() {
 
       requestAnimationFrame(draw);
     });
-
-    makeEventListener(downscaleFactorElem, "change", () => {
-      downscaleFactor = downscaleFactorElem.valueAsNumber;
-    });
   });
 
   return (
-    <>
-      <div ref={setInputsElem} class="pt-4">
-        <input
-          type="number"
-          id="downscalefactor"
-          ref={setDownscaleFactorElement}
-          placeholder="3"
-          value="3"
-        />
-        <label for="downscalefactor">downscale factor</label>
+    <Switch fallback={<p>uh oh</p>}>
+      <Match when={!isSafari()}>
+        <Show when={isDefault()}>
+          <div class="pt-4">
+            <input
+              type="number"
+              id="downscalefactor"
+              onChange={(ev) => {
+                setDownscaleFactor(ev.target.valueAsNumber);
+              }}
+              placeholder="3"
+              value="3"
+            />
+            <label for="downscalefactor"> downscale factor</label>
+            <br />
+            <hr />
+            <br />
+          </div>
+        </Show>
+        <VideoPlayer />
         <br />
-        <hr />
-      </div>
-      <video ref={setVideoElem} width="160" height="120" controls playsinline>
-        <source src={video} type="video/mp4" />
-        <source src="https://api.gurkz.me/badapple.mp4" type="video/mp4" />
-        your browser does not support the video tag
-      </video>
-      <br />
-      <table
-        style={{ "border-collapse": "collapse" }}
-        ref={setTableElem}
-      ></table>
-      <button
-        ref={setPlayBtn}
-        class="mr-2 bg-white text-black px-2 py-1 rounded-md"
-      >
-        play
-      </button>
-      <button
-        ref={setPauseBtn}
-        class="bg-white text-black px-2 py-1 rounded-md"
-      >
-        pause/resume
-      </button>
-    </>
+        <table
+          style={{ "border-collapse": "collapse" }}
+          ref={setTableElem}
+        ></table>
+      </Match>
+      <Match when={isSafari()}>
+        <Card type="error">
+          you seem to be on iOS (or iPadOS), this won't work on there. i am
+          working on a solution, thanks for your patience.{" "}
+          <a href="https://github.com/thatgurkangurk/gurkz.me/issues/10">
+            learn more
+          </a>
+        </Card>
+      </Match>
+    </Switch>
   );
 }
