@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+   web:
+     build:
+        dockerfile: ./Dockerfile
+
+     ports:
+       - 4321:4321
