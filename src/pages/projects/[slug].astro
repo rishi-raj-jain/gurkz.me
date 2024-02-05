@@ -16,7 +16,7 @@ const projects: MDXInstance<Frontmatter>[] = await Astro.glob<Frontmatter>(
 
 const { slug } = Astro.params;
 
-const project = projects.find((project) => project.slug === slug);
+const project = projects.find((project) => project.frontmatter.slug === slug);
 if (!project) return Astro.redirect("/404");
 
 const { Content, frontmatter } = project;
