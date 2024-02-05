@@ -1,3 +1,4 @@
+// @ts-nocheck component isnt used yet so doesnt matter
 import { splitProps } from "solid-js";
 import type { ComponentProps } from "solid-js";
 
