@@ -185,6 +185,11 @@ export function BadApple() {
             learn more
           </a>
         </Card>
+        <button onClick={() => {
+          setIsSafari(false)
+        }}>
+          no, let me try it anyways
+        </button>
       </Match>
     </Switch>
   );
