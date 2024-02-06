@@ -180,12 +180,13 @@ export function BadApple() {
         <Card type="error">
           you seem to be on iOS (or iPadOS), this won't work on there. i am
           working on a solution, thanks for your patience.{" "}
-          <a href="https://github.com/thatgurkangurk/gurkz.me/issues/10">
+          <a href="https://github.com/thatgurkangurk/gurkz.me/issues/10">     
             learn more
           </a>
         </Card>
         <button onClick={() => {
           setIsSafari(false)
+          // @ts-expect-error umami doesnt work well with typescript afaik
           window.umami?.track("bypassed iOS check");
         }}>
           no, let me try it anyways
