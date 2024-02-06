@@ -186,7 +186,7 @@ export function BadApple() {
         </Card>
         <button onClick={() => {
           setIsSafari(false)
-          window.umami!.track("bypassed iOS check");
+          window.umami?.track("bypassed iOS check");
         }}>
           no, let me try it anyways
         </button>
