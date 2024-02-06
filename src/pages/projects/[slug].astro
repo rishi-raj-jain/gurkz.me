@@ -1,6 +1,5 @@
 ---
-export const prerender = true;
-import type { GetStaticPaths, MDXInstance } from "astro";
+import type { MDXInstance } from "astro";
 import Layout from "../../layouts/Layout.astro";
 import { Card } from "../../components/Card.tsx";
 
@@ -11,24 +10,16 @@ type Frontmatter = {
   needsJS: boolean;
 };
 
-export const getStaticPaths = (async () => {
-  const projects: MDXInstance<Frontmatter>[] = await Astro.glob<Frontmatter>(
-    "../../projects/**/*.mdx"
-  );
+const projects: MDXInstance<Frontmatter>[] = await Astro.glob<Frontmatter>(
+  "../../projects/**/*.mdx"
+);
 
-  const projectsMap = projects.map((project) => ({
-    params: {
-      slug: project.frontmatter.slug,
-    },
-    props: {
-      project,
-    },
-  }));
+const { slug } = Astro.params;
 
-  return projectsMap;
-}) satisfies GetStaticPaths;
+const project = projects.find((project) => project.frontmatter.slug === slug);
+if (!project) return Astro.redirect("/404");
 
-const { Content, frontmatter } = Astro.props.project;
+const { Content, frontmatter } = project;
 ---
 
 <Layout title={`projects - ${frontmatter.title}`}>
