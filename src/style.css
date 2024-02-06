@@ -1,5 +1,5 @@
 html {
-  --at-apply: "ml-[calc(100vw-100%)] mr-0 [color-scheme:dark] h-full antialiased touch-manipulation scroll-smooth";
+  --at-apply: "ml-[calc(100vw-100%)] mr-0 [color-scheme:dark] h-[96dvh] antialiased touch-manipulation scroll-smooth";
 }
 
 body {
