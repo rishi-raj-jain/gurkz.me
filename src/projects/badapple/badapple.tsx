@@ -47,7 +47,6 @@ function VideoPlayer() {
       playsinline
     >
       <source src={video} type="video/mp4" />
-      <source src="https://api.gurkz.me/badapple.mp4" type="video/mp4" />
       your browser does not support the video tag
     </video>
   );
