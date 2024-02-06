@@ -18,7 +18,7 @@ const { title } = Astro.props;
     <script is:inline>
        document.addEventListener('astro:page-load', {
            // @ts-expect-error typescript doesnt like umami
-           window.umami?.track();
+           window.umami.track();
        })
     </script>
   </head>
