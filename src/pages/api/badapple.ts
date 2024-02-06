@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import fs from "node:fs";
+import fs from "fs";
 import path from "path";
 
 export const GET: APIRoute = ({ req }) => {
