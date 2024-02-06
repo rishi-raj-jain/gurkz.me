@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import fs from "fs";
 import path from "path";
 
-export const GET: APIRoute = ({ req }) => {
+export const GET: APIRoute = ({ request: req }) => {
   const range = req.headers.range;
   if (!range) return new Response("you need to provide a range", { status: 400 });
 
